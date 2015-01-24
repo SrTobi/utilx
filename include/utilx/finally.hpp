@@ -8,17 +8,21 @@
 namespace utilx {
 	class finally
 	{
-		std::function<void(void)> functor;
 	public:
 		template<typename Func>
 		finally(Func _func)
-			: functor(_func)
+			: mFunctor(_func)
 		{}
 
 		~finally()
 		{
-			functor();
+			mFunctor();
 		}
+
+		finally(const finally&) = delete;
+		finally& operator=(const finally&) = delete;
+	private:
+		std::function<void(void)> mFunctor;
 	};
 }
 

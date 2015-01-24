@@ -7,7 +7,7 @@ set(Project_PREFIX "utilx")
 include(GenerateExportHeader)
 
 add_subdirectory("extras/buildx")
-buildx_enable_debug(all)
+buildx_enable_debug()
 buildx_version_dir(UTILX_VERSION_DIR)
 buildx_set_default_prefixes()
 buildx_set_default_output_dirs()

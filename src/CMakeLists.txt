@@ -26,5 +26,5 @@ buildx_target_includes(	TARGETS utilx
 							${UTILX_GLM_INCLUDE_DIR}
 						DESTINATION include/${UTILX_VERSION_DIR})
 
-#buildx_add_external_test(external-test ${PROJECT_SOURCE_DIR}/tests/interface TEST_TARGETS logx)
+buildx_add_external_test(utilx-test ${PROJECT_SOURCE_DIR}/tests TEST_TARGETS utilx)
 #buildx_add_internal_test(internal-test ${PROJECT_SOURCE_DIR}/tests/internal TEST_TARGET logx)
