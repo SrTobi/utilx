@@ -7,14 +7,20 @@
 namespace utilx{
 
 	template<typename T, typename Alloc = std::allocator<T>>
-	class CircleBuffer
+	class circle_vector
 	{
 	public:
 		typedef T value_type;
 		typedef std::vector<T, Alloc> back_type;
 	public:
-		CircleBuffer()
+		circle_vector()
 			: mOffset(0)
+		{
+		}
+
+		circle_vector(std::initializer_list<T> _iniList)
+			: mOffset(0)
+			, mBuffer(_iniList)
 		{
 		}
 
@@ -25,19 +31,19 @@ namespace utilx{
 
 		T& at(std::size_t idx)
 		{
-			axAssert(idx >= 0 && idx < mBuffer.size());
+			assert(idx >= 0 && idx < mBuffer.size());
 			return mBuffer.at((idx + mOffset) % mBuffer.size());
 		}
 
 		const T& at(std::size_t idx) const
 		{
-			axAssert(idx >= 0 && idx < mBuffer.size());
+			assert(idx >= 0 && idx < mBuffer.size());
 			return mBuffer.at((idx + mOffset) % mBuffer.size());
 		}
 
 		void push(const T& _val)
 		{
-			axAssert(mOffset == 0);
+			assert(mOffset == 0);
 			mBuffer.push_back(_val);
 		}
 
