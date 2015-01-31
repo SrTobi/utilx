@@ -5,7 +5,12 @@ buildx_auto_group("${UTILX_SOURCE}" PREFIX source)
 buildx_auto_group("${UTILX_PUBLIC_INCLUDES}")
 
 # add library
+find_package(Boost REQUIRED)
+
+
 include_directories(.)
+include_directories(${BOOST_INCLUDES})
+
 add_library(utilx STATIC ${UTILX_SOURCE} ${UTILX_PUBLIC_INCLUDES})
 buildx_export_header(utilx
 					DESTINATION_FILE "UTILX_PUBLIC_INCLUDES"
