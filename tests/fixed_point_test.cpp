@@ -39,16 +39,17 @@ namespace fixed_point_tests {
 
 	TESTX_AUTO_TEST_CASE(_check_casts)
 	{
-		numeric::fixed_point f = 3;
+		numeric::fixed_point f = 7;
 
 		{
-			BOOST_CHECK_EQUAL((int)f, 3);
+			/*BOOST_CHECK_EQUAL((int)f, 3);
 			BOOST_CHECK_EQUAL((long)f, 3);
-			BOOST_CHECK_EQUAL((unsigned int)f, 3);
+			BOOST_CHECK_EQUAL((unsigned int)f, 3);*/
 		}
 
 		{
-			float f1 = f;
+			auto x = std::floor(f / fixp(3));
+			std::cout << x;
 		}
 
 	}

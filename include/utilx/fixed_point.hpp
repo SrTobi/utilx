@@ -25,6 +25,7 @@
 #include <climits> // for CHAR_BIT
 #include <stdint.h>
 #include <type_traits>
+#include <cmath>
 
 #include <boost/operators.hpp>
 
@@ -421,15 +422,15 @@ namespace numeric {
 			return to<To>();
 		}
 
-		operator float () const
+		/*operator float () const
 		{
 			return to<float>();
-		}
+		}*/
 
-		operator double () const
+		/*explicte operator double () const
 		{
 			return to<double>();
-		}
+		}*/
 	public:
 		void swap(basic_fixed_point &rhs) {
 			using std::swap;
@@ -456,6 +457,20 @@ namespace numeric {
 	const std::size_t basic_fixed_point<I, F>::total_bits;
 
 	typedef basic_fixed_point<24, 8> fixed_point;
+	typedef fixed_point fixp;
+}
 
+namespace std {
+	template <std::size_t I, std::size_t F>
+	numeric::basic_fixed_point<I, F> abs(numeric::basic_fixed_point<I, F> _fp)
+	{
+		return _fp.to_raw() < 0 ? -_fp : _fp;
+	}
+
+	template <std::size_t I, std::size_t F>
+	numeric::basic_fixed_point<I, F> floor(numeric::basic_fixed_point<I, F> _fp)
+	{
+		return static_cast<numeric::basic_fixed_point<I, F>::base_type>(_fp);
+	}
 }
 #endif
