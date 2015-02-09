@@ -234,7 +234,8 @@ namespace utilx {
 	 * without having to specify all the different versions of operators manually
 	 */
 	template <std::size_t I, std::size_t F>
-	class basic_fixed_point : boost::operators<basic_fixed_point<I, F> >, boost::shiftable < basic_fixed_point<I, F> > {
+	class basic_fixed_point : boost::operators<basic_fixed_point<I, F> > //, boost::shiftable < basic_fixed_point<I, F> >
+	{
 		static_assert(detail::type_from_size<I + F>::is_specialized, "Fixed<I, F> is not specialized");
 
 	public:
@@ -256,8 +257,7 @@ namespace utilx {
 		static const base_type one = base_type(1) << fractional_bits;
 
 	public: // constructors
-		basic_fixed_point() : mData(0) {
-		}
+		basic_fixed_point() = default;
 
 		template<typename From>
 		basic_fixed_point(From n, typename std::enable_if<std::is_convertible<From, base_type>::value && std::is_integral<From>::value>::type* = nullptr)
@@ -270,13 +270,8 @@ namespace utilx {
 
 		}
 
-		basic_fixed_point(const basic_fixed_point &o) : mData(o.mData) {
-		}
-
-		basic_fixed_point& operator=(const basic_fixed_point &o) {
-			mData = o.mData;
-			return *this;
-		}
+		basic_fixed_point(const basic_fixed_point &o) = default;
+		basic_fixed_point& operator=(const basic_fixed_point &o) = default;
 
 	private:
 		// this makes it simpler to create a fixed point object from
@@ -457,7 +452,13 @@ namespace utilx {
 	const std::size_t basic_fixed_point<I, F>::total_bits;
 
 	typedef basic_fixed_point<24, 8> fixed_point;
+	typedef basic_fixed_point<48, 16> dfixed_point;
 	typedef fixed_point fixp;
+	typedef dfixed_point dfixp;
+
+	static_assert(sizeof(fixed_point) == sizeof(fixed_point::base_type), "fixed_point must have the same size as its base type!");
+	static_assert(std::is_trivial<fixed_point>::value, "fixed_point must be trivial!");
+	static_assert(std::is_standard_layout<fixed_point>::value, "fixed_point must be standard layouted!");
 }
 
 namespace std {
