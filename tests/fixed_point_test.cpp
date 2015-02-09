@@ -42,15 +42,14 @@ namespace fixed_point_tests {
 		utilx::fixed_point f = 7;
 
 		{
-			/*BOOST_CHECK_EQUAL((int)f, 3);
+			BOOST_CHECK_EQUAL((int)f, 3);
 			BOOST_CHECK_EQUAL((long)f, 3);
-			BOOST_CHECK_EQUAL((unsigned int)f, 3);*/
+			BOOST_CHECK_EQUAL((unsigned int)f, 3);
 		}
 
 		{
 			auto x = std::floor(f / fixp(3));
 			std::cout << x;
 		}
-
 	}
 }
