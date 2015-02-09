@@ -15,7 +15,8 @@ namespace fixed_point_tests {
 
 		int i = (int)f;
 
-		std::cout << f;
+		std::ostringstream iss;
+		iss << f;
 	}
 
 	TESTX_AUTO_TEST_CASE(_check_constructors)
@@ -39,17 +40,34 @@ namespace fixed_point_tests {
 
 	TESTX_AUTO_TEST_CASE(_check_casts)
 	{
-		utilx::fixed_point f = 7;
+		utilx::fixed_point f = 3;
 
 		{
 			BOOST_CHECK_EQUAL((int)f, 3);
 			BOOST_CHECK_EQUAL((long)f, 3);
 			BOOST_CHECK_EQUAL((unsigned int)f, 3);
 		}
+	}
 
-		{
-			auto x = std::floor(f / fixp(3));
-			std::cout << x;
-		}
+	TESTX_AUTO_TEST_CASE(_check_function)
+	{
+		fixp n = 36;
+		const auto result = std::sqrt(n);
+		const auto result_quad = result * result;
+		BOOST_CHECK_EQUAL(n, result_quad);
 	}
 }
+
+/*
+
+	a = b / shift;
+	
+	r = sqrt(a)
+	r = sqrt(b / shift)
+	r = sqrt(b) / sqrt(shift)
+
+
+
+	
+	
+*/

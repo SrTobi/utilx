@@ -472,5 +472,21 @@ namespace std {
 	{
 		return static_cast<utilx::basic_fixed_point<I, F>::base_type>(_fp);
 	}
+
+	template <std::size_t I, std::size_t F>
+	utilx::basic_fixed_point<I, F> sqrt(utilx::basic_fixed_point<I, F> _fp)
+	{
+		typedef utilx::basic_fixed_point<I, F>	target_type;
+		typedef typename target_type::base_type base_type;
+
+		const double source_raw = _fp.to_raw();
+		const double source_sqrt = std::sqrt(static_cast<double>(source_raw));
+		base_type result_sqrt = static_cast<base_type>(source_sqrt);
+
+		do { ++result_sqrt; } while(result_sqrt * result_sqrt <= source_raw);
+		do { --result_sqrt; } while(result_sqrt * result_sqrt > source_raw);
+
+		return target_type::from_raw(result_sqrt * (target_type::fractional_bits << 1));
+	}
 }
 #endif
