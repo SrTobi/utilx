@@ -4,7 +4,7 @@
 #include "testx/testx.hpp"
 #include "utilx/fixed_point.hpp"
 
-using namespace numeric;
+using namespace utilx;
 
 namespace fixed_point_tests {
 
@@ -21,25 +21,25 @@ namespace fixed_point_tests {
 	TESTX_AUTO_TEST_CASE(_check_constructors)
 	{
 		{
-			numeric::fixed_point f1(3);
-			numeric::fixed_point f2(long(3));
-			numeric::fixed_point f3((unsigned int)(3));
-			numeric::fixed_point f5(3.2);
-			numeric::fixed_point f6(3.2f);
+			utilx::fixed_point f1(3);
+			utilx::fixed_point f2(long(3));
+			utilx::fixed_point f3((unsigned int)(3));
+			utilx::fixed_point f5(3.2);
+			utilx::fixed_point f6(3.2f);
 		}
 
 		{
-			numeric::fixed_point f1 = 3;
-			numeric::fixed_point f2 = long(3);
-			numeric::fixed_point f3 = unsigned int(3);
-			numeric::fixed_point f5 = static_cast<fixed_point>(3.2);
-			numeric::fixed_point f6 = static_cast<fixed_point>(3.2f);
+			utilx::fixed_point f1 = 3;
+			utilx::fixed_point f2 = long(3);
+			utilx::fixed_point f3 = unsigned int(3);
+			utilx::fixed_point f5 = static_cast<fixed_point>(3.2);
+			utilx::fixed_point f6 = static_cast<fixed_point>(3.2f);
 		}
 	}
 
 	TESTX_AUTO_TEST_CASE(_check_casts)
 	{
-		numeric::fixed_point f = 7;
+		utilx::fixed_point f = 7;
 
 		{
 			/*BOOST_CHECK_EQUAL((int)f, 3);

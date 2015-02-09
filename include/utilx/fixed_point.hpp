@@ -29,7 +29,7 @@
 
 #include <boost/operators.hpp>
 
-namespace numeric {
+namespace utilx {
 
 	template <std::size_t I, std::size_t F>
 	class basic_fixed_point;
@@ -220,7 +220,7 @@ namespace numeric {
 	}
 
 
-	// lets us do things like "typedef numeric::fixed_from_type<int32_t>::fixed_type fixed";
+	// lets us do things like "typedef utilx::fixed_from_type<int32_t>::fixed_type fixed";
 	// NOTE: that we will use a type of equivalent size, not neccessarily the type
 	// specified. Should make little to no difference to the user
 	template <class T>
@@ -462,15 +462,15 @@ namespace numeric {
 
 namespace std {
 	template <std::size_t I, std::size_t F>
-	numeric::basic_fixed_point<I, F> abs(numeric::basic_fixed_point<I, F> _fp)
+	utilx::basic_fixed_point<I, F> abs(utilx::basic_fixed_point<I, F> _fp)
 	{
 		return _fp.to_raw() < 0 ? -_fp : _fp;
 	}
 
 	template <std::size_t I, std::size_t F>
-	numeric::basic_fixed_point<I, F> floor(numeric::basic_fixed_point<I, F> _fp)
+	utilx::basic_fixed_point<I, F> floor(utilx::basic_fixed_point<I, F> _fp)
 	{
-		return static_cast<numeric::basic_fixed_point<I, F>::base_type>(_fp);
+		return static_cast<utilx::basic_fixed_point<I, F>::base_type>(_fp);
 	}
 }
 #endif
