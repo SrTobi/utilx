@@ -32,7 +32,7 @@ namespace fixed_point_tests {
 		{
 			utilx::fixed_point f1 = 3;
 			utilx::fixed_point f2 = long(3);
-			utilx::fixed_point f3 = unsigned int(3);
+			utilx::fixed_point f3 = (unsigned int)(3);
 			utilx::fixed_point f5 = static_cast<fixed_point>(3.2);
 			utilx::fixed_point f6 = static_cast<fixed_point>(3.2f);
 		}

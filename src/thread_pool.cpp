@@ -1,5 +1,6 @@
 #include <map>
 #include <iostream>
+#include <assert.h>
 //#include <boost/exception/all.hpp>
 
 #include "utilx/thread_pool.hpp"

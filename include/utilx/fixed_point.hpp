@@ -471,7 +471,7 @@ namespace std {
 	template <std::size_t I, std::size_t F>
 	utilx::basic_fixed_point<I, F> floor(utilx::basic_fixed_point<I, F> _fp)
 	{
-		return static_cast<utilx::basic_fixed_point<I, F>::base_type>(_fp);
+		return static_cast<typename utilx::basic_fixed_point<I, F>::base_type>(_fp);
 	}
 
 	template <std::size_t I, std::size_t F>

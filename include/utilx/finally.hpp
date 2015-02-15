@@ -19,6 +19,7 @@ namespace utilx {
 			mFunctor();
 		}
 
+		finally(finally&&) = default;
 		finally(const finally&) = delete;
 		finally& operator=(const finally&) = delete;
 	private:
