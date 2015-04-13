@@ -489,5 +489,13 @@ namespace std {
 
 		return target_type::from_raw(result_sqrt * (target_type::fractional_bits << 1));
 	}
+	
+	template <std::size_t I, std::size_t F>
+	std::string to_string(utilx::basic_fixed_point<I, F> _fp)
+	{
+		std::ostringstream oss;
+		oss << _fp;
+		return oss.str();
+	}
 }
 #endif
