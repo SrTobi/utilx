@@ -4,6 +4,7 @@
 
 
 #include <functional>
+#include "noexcept.hpp"
 
 namespace utilx {
 	class finally
@@ -19,7 +20,11 @@ namespace utilx {
 			mFunctor();
 		}
 
-		finally(finally&&) = default;
+		finally(finally&& _old) UTILX_NOEXCEPT
+			: mFunctor(std::move(_old.mFunctor))
+		{
+		}
+
 		finally(const finally&) = delete;
 		finally& operator=(const finally&) = delete;
 	private:
