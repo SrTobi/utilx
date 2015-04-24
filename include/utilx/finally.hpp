@@ -15,7 +15,7 @@ namespace utilx {
 			: mFunctor(_func)
 		{}
 
-		~finally()
+		inline ~finally()
 		{
 			mFunctor();
 		}
