@@ -20,11 +20,7 @@ namespace utilx {
 			mFunctor();
 		}
 
-		finally(finally&& _old) UTILX_NOEXCEPT
-			: mFunctor(std::move(_old.mFunctor))
-		{
-		}
-
+		finally(finally&& _old) = delete;
 		finally(const finally&) = delete;
 		finally& operator=(const finally&) = delete;
 	private:
