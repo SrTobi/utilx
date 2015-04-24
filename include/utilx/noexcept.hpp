@@ -5,9 +5,6 @@
 /**
  *	\file 
  *
- *	\defgroup macros Macros
- *	Contains helper macros.
- *	
  *	\ingroup macros
  *	@{
  */
