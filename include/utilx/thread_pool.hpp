@@ -15,11 +15,13 @@ namespace utilx {
 	public:
 		typedef std::function<bool()> func_type;
 	public:
-		thread_pool(func_type _func);
+		thread_pool(func_type func, std::size_t threadCount = 1);
 		~thread_pool();
 
-		void setThreadCount(size_t _count);
+		std::size_t thread_count() const;
 
+		std::size_t working_count() const;
+		void thread_count(std::size_t count);
 		void start();
 		void stop();
 		void finish();

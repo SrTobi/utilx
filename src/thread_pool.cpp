@@ -8,8 +8,8 @@
 
 namespace utilx {
 
-	thread_pool::thread_pool(func_type _func)
-		: mTargetThreadCount(1)
+	thread_pool::thread_pool(func_type _func, std::size_t threadCount)
+		: mTargetThreadCount(threadCount)
 		, mRun(false)
 		, mDestroy(false)
 		, mFunc(_func)
@@ -37,7 +37,7 @@ namespace utilx {
 		}*/
 	}
 
-	void thread_pool::setThreadCount(size_t count)
+	void thread_pool::thread_count(std::size_t count)
 	{
 		std::lock_guard<std::mutex> lock(mMutex);
 		if (mTargetThreadCount == count)
@@ -47,8 +47,15 @@ namespace utilx {
 
 		mTargetThreadCount = count;
 		//log.info() << "thread count is now " << mTargetThreadCount;
+		if (addThreads)
+			_start_thread();
 	}
 
+
+	std::size_t thread_pool::thread_count() const
+	{
+		return mWorkingThreads;
+	}
 
 	void thread_pool::start()
 	{
@@ -111,6 +118,8 @@ namespace utilx {
 					std::unique_lock<std::mutex> lck(mMutex);
 					_start_thread();
 					mNotifier.wait(lck, [this]{return mRun || mDestroy; });
+					if (mWorkingThreads >= mTargetThreadCount)
+						break;
 				}
 
 				if (mDestroy)
@@ -139,11 +148,7 @@ namespace utilx {
 				<< "Exception in worker thread!"
 				<< "\n------------------------\n"
 				//<< boost::current_exception_diagnostic_information()
-				<< "\n------------------------";
-
-#ifdef TILENET_RETHROW_THREAD_EXCEPTIONS
-			throw;
-#endif
+				<< "\n------------------------\n";
 		}
 	}
 
