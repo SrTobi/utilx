@@ -8,7 +8,7 @@
 
 namespace utilx {
 
-	ThreadPool::ThreadPool(func_type _func)
+	thread_pool::thread_pool(func_type _func)
 		: mTargetThreadCount(1)
 		, mRun(false)
 		, mDestroy(false)
@@ -16,7 +16,7 @@ namespace utilx {
 	{
 	}
 
-	ThreadPool::~ThreadPool()
+	thread_pool::~thread_pool()
 	{
 		stop();
 		finish();
@@ -37,7 +37,7 @@ namespace utilx {
 		}*/
 	}
 
-	void ThreadPool::setThreadCount(size_t count)
+	void thread_pool::setThreadCount(size_t count)
 	{
 		std::lock_guard<std::mutex> lock(mMutex);
 		if (mTargetThreadCount == count)
@@ -50,7 +50,7 @@ namespace utilx {
 	}
 
 
-	void ThreadPool::start()
+	void thread_pool::start()
 	{
 		std::lock_guard<std::mutex> lck(mMutex);
 		mRun = true;
@@ -58,19 +58,19 @@ namespace utilx {
 		_start_thread();
 	}
 
-	void ThreadPool::stop()
+	void thread_pool::stop()
 	{
 		std::lock_guard<std::mutex> lck(mMutex);
 		mRun = false;
 	}
 
-	void ThreadPool::finish()
+	void thread_pool::finish()
 	{
 		std::unique_lock<std::mutex> lck(mMutex);
 		mNotifier.wait(lck, [this]{return mWorkingThreads == 0 && !mRun; });
 	}
 
-	void ThreadPool::destroy()
+	void thread_pool::destroy()
 	{
 		{
 			std::lock_guard<std::mutex> lock(mMutex);
@@ -86,13 +86,13 @@ namespace utilx {
 	}
 
 
-	bool ThreadPool::processing() const
+	bool thread_pool::processing() const
 	{
 		return mWorkingThreads > 0 || mRun;
 	}
 
 
-	void ThreadPool::_run_thread()
+	void thread_pool::_run_thread()
 	{
 		finally unregister = [this](){
 			std::lock_guard<std::mutex> lck(mMutex);
@@ -147,11 +147,11 @@ namespace utilx {
 		}
 	}
 
-	void ThreadPool::_start_thread()
+	void thread_pool::_start_thread()
 	{
 		if (mTargetThreadCount > mThreads.size() && !mDestroy)
 		{
-			std::thread thread(std::bind(&ThreadPool::_run_thread, this));
+			std::thread thread(std::bind(&thread_pool::_run_thread, this));
 			mThreads.emplace(thread.get_id(), std::move(thread));
 		}
 	}

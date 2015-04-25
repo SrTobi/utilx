@@ -10,13 +10,13 @@
 
 
 namespace utilx {
-	class ThreadPool
+	class thread_pool
 	{
 	public:
 		typedef std::function<bool()> func_type;
 	public:
-		ThreadPool(func_type _func);
-		~ThreadPool();
+		thread_pool(func_type _func);
+		~thread_pool();
 
 		void setThreadCount(size_t _count);
 
