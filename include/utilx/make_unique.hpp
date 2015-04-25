@@ -6,7 +6,14 @@
 #include <type_traits>
 #include <utility>
 
-#ifndef _MSC_VER
+#ifdef _MSC_VER
+#	define UTILX_FEATURES_HAS_MAKE_UNIQUE 1
+#else
+#	define UTILX_FEATURES_HAS_MAKE_UNIQUE 0
+#endif
+
+
+#if !UTILX_FEATURES_HAS_MAKE_UNIQUE
 
 namespace std {
 
@@ -27,11 +34,21 @@ namespace std {
 
 	}
 
+}
+
+#endif
+
+
+
+namespace utilx {
+#if UTILX_FEATURES_HAS_MAKE_UNIQUE && !defined(DOXYGEN_DOCS)
+	using std::make_unique;
+#else
 	template <typename T, typename... Args>
 	std::unique_ptr<T> make_unique(Args&&... args) {
 		return detail::make_unique_helper<T>(std::is_array<T>(), std::forward<Args>(args)...);
 	}
+#endif
 }
 
-#endif
 #endif
