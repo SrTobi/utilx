@@ -7,7 +7,6 @@ namespace fixed_point_glm_tests {
 
 	TESTX_AUTO_TEST_CASE(_check_glm_functions)
 	{
-		std::cout << sizeof(utilx::dfixed_point) << std::endl;
 		utilx::fixp fp(2);
 		utilx::fixvec2 vec(1, 3);
 
