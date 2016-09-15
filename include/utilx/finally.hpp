@@ -67,7 +67,10 @@ namespace utilx {
 			mFunctor();
 		}
 
-		finally(finally&& _old) = delete;
+		explicit finally(finally&& _old) 
+			: mFunctor(std::move(_old.mFunctor))
+		{
+		}
 		finally(const finally&) = delete;
 		finally& operator=(const finally&) = delete;
 	private:
