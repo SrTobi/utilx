@@ -27,7 +27,11 @@
 #include <type_traits>
 #include <cmath>
 
+#include <boost/core/enable_if.hpp>
+#include <boost/assert.hpp>
 #include <boost/operators.hpp>
+#include <boost/static_assert.hpp>
+
 
 namespace utilx {
 
