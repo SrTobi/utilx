@@ -17,7 +17,7 @@
 
 #if !UTILX_FEATURES_HAS_MAKE_UNIQUE
 
-namespace std {
+namespace utilx {
 
 	namespace detail {
 		template <typename T, typename... Args>
